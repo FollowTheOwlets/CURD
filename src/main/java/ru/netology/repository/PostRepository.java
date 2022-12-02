@@ -3,13 +3,15 @@ package ru.netology.repository;
 import ru.netology.model.Post;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 // Stub
 public class PostRepository {
-    Map<Long, Post> posts;
+    ConcurrentMap<Long, Post> posts;
 
     public PostRepository() {
-        posts = new HashMap<>();
+        posts = new ConcurrentHashMap<>();
     }
 
     public List<Post> all() {
