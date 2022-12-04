@@ -26,7 +26,7 @@ public class PostRepository {
         }
     }
 
-    public Post save(Post post) {
+    public synchronized Post save(Post post) {
         post.setId(posts.size() + 1);
         posts.put((long) (posts.size() + 1), post);
         return post;
