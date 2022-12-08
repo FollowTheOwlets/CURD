@@ -5,13 +5,15 @@ import ru.netology.model.Post;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicLong;
 
-// Stub
 public class PostRepository {
-    ConcurrentMap<Long, Post> posts;
+    private ConcurrentMap<Long, Post> posts;
+    private AtomicLong nextId;
 
     public PostRepository() {
         posts = new ConcurrentHashMap<>();
+        nextId = new AtomicLong(0L);
     }
 
     public List<Post> all() {
@@ -26,9 +28,10 @@ public class PostRepository {
         }
     }
 
-    public synchronized Post save(Post post) {
-        post.setId(posts.size() + 1);
-        posts.put((long) (posts.size() + 1), post);
+    public Post save(Post post) {
+        long id = nextId.incrementAndGet();
+        post.setId(id);
+        posts.put(id, post);
         return post;
     }
 
